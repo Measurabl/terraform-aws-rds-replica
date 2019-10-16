@@ -9,17 +9,8 @@ module "label" {
   tags       = var.tags
 }
 
-resource "aws_kms_key" "default" {
-  count                   = local.enabled && length(var.kms_key_id) == 0 ? 1 : 0
-  description             = module.label.id
-  deletion_window_in_days = 10
-  enable_key_rotation     = true
-  tags                    = module.label.tags
-}
-
 locals {
-  enabled                   = var.enabled == "true"
-  kms_key_id                = length(var.kms_key_id) > 0 || var.same_region == "true" ? var.kms_key_id : join("", aws_kms_key.default.*.arn)
+  enabled = var.enabled == "true"
 }
 
 resource "aws_db_instance" "default" {
@@ -42,7 +33,7 @@ resource "aws_db_instance" "default" {
   backup_retention_period     = var.backup_retention_period
   backup_window               = var.backup_window
   tags                        = module.label.tags
-  kms_key_id                  = local.kms_key_id
+  kms_key_id                  = var.kms_key_arn
   monitoring_interval         = var.monitoring_interval
   replicate_source_db         = var.replicate_source_db
 }
