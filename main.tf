@@ -43,6 +43,10 @@ resource "aws_db_subnet_group" "default" {
   name       = module.label.id
   subnet_ids = var.subnet_ids
   tags       = module.label.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group" "default" {
@@ -52,6 +56,10 @@ resource "aws_security_group" "default" {
   vpc_id      = var.vpc_id
 
   tags = module.label.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 locals {
