@@ -156,6 +156,12 @@ variable "kms_key_arn" {
   default     = ""
 }
 
+variable "prevent_db_destroy" {
+  type        = bool
+  description = "Prevent the database isntance from being destroyed"
+  default     = true
+}
+
 variable "replicate_source_db" {
   description = "Specifies that this resource is a Replicate database, and to use this value as the source database. This correlates to the identifier of another Amazon RDS Database to replicate. Note that if you are creating a cross-region replica of an encrypted database you will also need to specify a kms_key_arn. See [DB Instance Replication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Replication.html) and [Working with PostgreSQL and MySQL Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html) for more information on using Replication."
 }

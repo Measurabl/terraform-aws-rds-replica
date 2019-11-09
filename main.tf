@@ -36,6 +36,10 @@ resource "aws_db_instance" "default" {
   kms_key_id                  = var.kms_key_arn
   monitoring_interval         = var.monitoring_interval
   replicate_source_db         = var.replicate_source_db
+
+  lifecycle {
+    create_before_destroy = var.prevent_db_destroy
+  }
 }
 
 resource "aws_db_subnet_group" "default" {
