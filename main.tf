@@ -11,6 +11,7 @@ module "label" {
 
 locals {
   enabled = var.enabled == "true"
+  prevent_db_destroy = var.prevent_db_destroy
 }
 
 resource "aws_db_instance" "default" {
@@ -38,7 +39,7 @@ resource "aws_db_instance" "default" {
   replicate_source_db         = var.replicate_source_db
 
   lifecycle {
-    create_before_destroy = var.prevent_db_destroy
+    create_before_destroy = local.prevent_db_destroy
   }
 }
 
