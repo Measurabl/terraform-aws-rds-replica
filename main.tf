@@ -39,7 +39,7 @@ resource "aws_db_instance" "default" {
   replicate_source_db         = var.replicate_source_db
 
   lifecycle {
-    create_before_destroy = local.prevent_db_destroy
+    create_before_destroy = "${local.prevent_db_destroy}"
   }
 }
 
